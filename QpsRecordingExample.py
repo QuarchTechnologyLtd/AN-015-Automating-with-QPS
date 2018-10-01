@@ -17,9 +17,53 @@ This can also be used if you want to use a different version of QPS and will run
 '''
 
 # Import QPS functions
-from quarchpy import qpsInterface, isQpsRunning, startLocalQps
+from quarchpy import qpsInterface, isQpsRunning, startLocalQps, GetQpsModuleSelection, quarchDevice, quarchQPS
 # OS allows us access to path data
 import os, time
+
+'''
+Simple function to check the output mode of the power module, setting it to 3v3 if required
+then enabling the outputs if not already done.  This will result in the module being turned on
+and supplying power
+'''
+def setupPowerOutput (myModule):
+    # Output mode is set automatically on HD modules using an HD fixture, otherwise we will chose 5V mode for this example
+    if "DISABLED" in myModule.sendCommand("config:output Mode?"):
+        try:
+            drive_voltage = raw_input("\n Either using an HD without an intelligent fixture or an XLC.\n \n>>> Please select a voltage [3V3, 5V]: ") or "3V3" or "5V"
+        except NameError:
+            drive_voltage = input("\n Either using an HD without an intelligent fixture or an XLC.\n \n>>> Please select a voltage [3V3, 5V]: ") or "3V3" or "5V"
+
+        myModule.sendCommand("config:output:mode:"+ drive_voltage)
+    
+    # Check the state of the module and power up if necessary
+    powerState = myModule.sendCommand ("run power?")
+    # If outputs are off
+    if "OFF" in powerState:
+        # Power Up
+        print ("\n Turning the outputs on:"), myModule.sendCommand ("run:power up"), "!"
+
+'''
+Example function to write data to an arbitary channel that has been previously created
+This data would normally come from another process such as drive monitor software or
+a traffic generator
+'''
+def writeArbitaryData (myStream, channelName, groupName):
+    print ("Writings 10 seconds worth of (made up) temperature data, please wait...")
+
+    # Add a few temperature points to the stream at 1 second intervals
+    driveTemp = 18
+    for x in range(0, 10):
+        myStream.addDataPoint (channelName, groupName, str(driveTemp))
+        driveTemp = driveTemp + 0.8
+        time.sleep (1)
+    time.sleep (1)
+
+    # Add a final time point at a specific time to demonstrate random addition of points
+    myStream.addDataPoint (channelName, groupName, str(driveTemp), time.time())
+
+
+
 
 '''
 File paths for the example are set here, and can be altered to put your data files in a different location
@@ -38,20 +82,15 @@ if isQpsRunning() == False:
 # string of the device you want to connect to
 myQps = qpsInterface()
 
-# Request a list of all USB and LAN accessible modules
-devList = myQps.getDeviceList()
+#Display and choose module from found modules
+myDeviceID = GetQpsModuleSelection (myQps)
 
-# Print the devices, so the user can choose one to connect to
-print ("\nList of devices attached to QIS:\n")
-for idx, device in enumerate(devList, start=1):
-    print (str(idx) + " : " + device)
-
-# Get the user to select the device to control
-moduleId = raw_input ("Enter the index number of the module to use: ")
-myDeviceID = device[moduleId]
+#convert module to quarch module
+myQuarchDevice = quarchDevice (myDeviceID, ConType = "QPS")
 
 # Create the device connection, as a QPS connected device
-myQpsDevice = quarchDevice (myDeviceID, ConType = "QPS")
+myQpsDevice = quarchQPS(myQuarchDevice)
+myQpsDevice.openConnection()
 
 # Prints out connected module information
 print ("Running QPS Automation Example")
@@ -77,10 +116,10 @@ Annotations can be added in real time, or placed anywhere on the trace as part o
 using a timestamp
 '''
 time.sleep (2)
-myStream.addAnnotation ('Adding an example annotation\nIn real time!')
+myStream.addAnnotation ('Adding an example annotation\\nIn real time!')
 time.sleep (1)
-myStream.addAnnotation ('Adding an example annotation\nAt a specific time!', time.time())
-
+myStream.addAnnotation ('Adding an example annotation\\nAt a specific time!', time.time())
+time.sleep(1)
 
 '''
 Example of adding arbitary data to the trace.  This allows IOPS, Temperature and similar to be added
@@ -104,42 +143,3 @@ myStream.stopStream ()
 
 
 
-'''
-Simple function to check the output mode of the power module, setting it to 3v3 if required
-then enabling the outputs if not already done.  This will result in the module being turned on
-and supplying power
-'''
-def setupPowerOutput (myModule):
-
-    # Output mode is set automatically on HD modules using an HD fixture, otherwise we will chose 3v3 mode for this example
-    if (myModule.sendCommand ("config:output Mode?") == "DISABLED"):
-        print ("Either using an HD without an intelligent fixture or an XLC. Manually setting voltage to 3v3")
-        print (myModule.sendCommand ("config:output:mode 3V3"))
-    
-    # Check the state of the module and power up if necessary
-    print ("Checking the state of the device and power up if necessary")
-    powerState = myModule.sendCommand ("run power?")
-    print ("State of the Device: " + (powerState))    
-    # If outputs are off
-    if powerState == "OFF":
-        # Power Up
-        print (myModule.sendCommand ("run:power up"))
-
-'''
-Example function to write data to an arbitary channel that has been previously created
-This data would normally come from another process such as drive monitor software or
-a traffic generator
-'''
-def writeArbitaryData (myStream, channelName, groupName):
-    print ("Writings 10 seconds worth of (made up) temperature data, please wait...")
-
-    # Add a few temperature points to the stream at 1 second intervals
-    driveTemp = 18
-    for x in range(0, 10):
-        myStream.addDataPoint (channelName, groupName, str(driveTemp))
-        driveTemp = driveTemp + 0.8
-        time.sleep (1)
-    time.sleep (1)
-
-    # Add a final time point at a specific time to demonstrate random addition of points
-    myStream.addDataPoint (channelName, groupName, str(driveTemp), time.time())
