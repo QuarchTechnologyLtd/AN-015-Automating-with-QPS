@@ -5,7 +5,7 @@ This example demonstrates adding annotations and datapoints to a QPS stream.
 
 ########### VERSION HISTORY ###########
 
-05/06/2018 - Andy Norrie	- First Version
+05/06/2018 - Andy Norrie    - First Version
 02/10/2018 - Matt Holsey    - Updated Script for updated QuarchPy Methods.
 
 ########### INSTRUCTIONS ###########

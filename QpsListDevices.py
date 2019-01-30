@@ -6,7 +6,7 @@ available for connection.  This verifies QuarchPy, QPS and the connection to the
 
 ########### VERSION HISTORY ###########
 
-05/06/2018 - Andy Norrie	- First Version
+05/06/2018 - Andy Norrie    - First Version
 
 ########### INSTRUCTIONS ###########
 
