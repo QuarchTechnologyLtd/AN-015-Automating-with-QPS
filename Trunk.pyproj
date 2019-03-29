@@ -22,6 +22,7 @@
     <Compile Include="QpsRecordingExample.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="quarchpy\" />
     <Folder Include="quarchpy\.svn\" />
     <Folder Include="quarchpy\.svn\pristine\" />
     <Folder Include="quarchpy\.svn\pristine\00\" />
