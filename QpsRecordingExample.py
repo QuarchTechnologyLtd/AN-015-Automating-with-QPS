@@ -18,7 +18,9 @@ This can also be used if you want to use a different version of QPS and will run
 '''
 
 # Import QPS functions
-from quarchpy import qpsInterface, isQpsRunning, startLocalQps, GetQpsModuleSelection, quarchDevice, quarchQPS
+import quarchpy
+from quarchpy.qps import *
+from quarchpy.device import *
 # OS allows us access to path data
 import os, time
 
@@ -64,7 +66,8 @@ def writeArbitaryData (myStream, channelName, groupName):
     myStream.addDataPoint (channelName, groupName, str(driveTemp), time.time())
 
 
-
+# Version 2.0.0 or higher expected for this appliation note
+quarchpy.requiredQuarchpyVersion ("2.0.0")
 
 '''
 File paths for the example are set here, and can be altered to put your data files in a different location
@@ -103,7 +106,7 @@ setupPowerOutput (myQpsDevice)
 
 # Set the averaging rate for the module.  This sets the resolution of data to record
 # This is done via a direct command to the power module
-print (myQpsDevice.sendCommand ("record:averaging 8k"))
+print (myQpsDevice.sendCommand ("record:averaging 32k"))
 
 # Start a stream, using the local folder of the script and a time-stamp file name in this example
 fileName = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())

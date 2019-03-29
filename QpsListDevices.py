@@ -18,9 +18,13 @@ This can also be used if you want to use a different version of QPS and will run
 '''
 
 # Import QPS functions
-from quarchpy import qpsInterface, isQpsRunning, startLocalQps
+import quarchpy
+from quarchpy.qps import *
 # OS allows us access to path data
 import os
+
+# Version 2.0.0 or higher expected for this appliation note
+quarchpy.requiredQuarchpyVersion ("2.0.0")
 
 # Checks is QPS is running on the localhost
 if isQpsRunning() == False:
@@ -28,7 +32,7 @@ if isQpsRunning() == False:
     # Start the version on QPS installed with the quarchpy, Otherwise use start
     startLocalQps()
 
-# Connect to the localhost QPS instance - you can also specify host='127.0.0.1' and port=*************************************??????? for remote control.
+# Connect to the localhost QPS instance - you can also specify host='192.168.100.104' and port=9822 for remote control.
 myQps = qpsInterface()
 
 # Request a list of all USB and LAN accessible modules
