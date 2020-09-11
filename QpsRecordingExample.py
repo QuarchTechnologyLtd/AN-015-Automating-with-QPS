@@ -113,7 +113,7 @@ fileName = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())
 myStream = myQpsDevice.startStream (filePath + fileName)
 
 '''
-Example of adding annotations to the trace.  This can be used to hilight events, errors or
+Example of adding annotations to the trace.  This can be used to highlight events, errors or
 changes from one part of a test to another.
 
 Annotations can be added in real time, or placed anywhere on the trace as part of post-processing,
@@ -121,8 +121,10 @@ using a timestamp
 '''
 time.sleep (2)
 myStream.addAnnotation ('Adding an example annotation\\nIn real time!')
+print(myStream.get_stats())
 time.sleep (1)
 myStream.addAnnotation ('Adding an example annotation\\nAt a specific time!', time.time())
+print(myStream.get_stats())
 time.sleep(1)
 
 '''
@@ -134,6 +136,8 @@ The final boolean will create auto SI unit ranges (milli/micro...) automatically
 '''
 
 myStream.addAnnotation ('Starting temperature measurement here!')
+
+print(myStream.get_stats())
 # Create new channel to record data into
 myStream.createChannel ('T1', 'Temp', 'C', False)
 myStream.createChannel ('T2', 'Temp', 'C', False)
@@ -142,8 +146,4 @@ writeArbitaryData (myStream, 'T1', 'Temp')
 
 # End the stream
 myStream.stopStream ()
-
-
-
-
 
