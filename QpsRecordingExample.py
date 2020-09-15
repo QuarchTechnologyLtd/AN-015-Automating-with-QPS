@@ -7,6 +7,7 @@ This example demonstrates adding annotations and datapoints to a QPS stream.
 
 05/06/2018 - Andy Norrie    - First Version
 02/10/2018 - Matt Holsey    - Updated Script for updated QuarchPy Methods.
+15/10/2020 - Pedro Cruz     - Updated Script for PAM.
 
 ########### INSTRUCTIONS ###########
 
@@ -102,7 +103,8 @@ print ("Module Name:")
 print (myQpsDevice.sendCommand ("hello?"))
 
 # Setup the volatge mode and enable the outputs
-setupPowerOutput (myQpsDevice)
+# Comment it out for PAM modules
+#setupPowerOutput (myQpsDevice)
 
 # Set the averaging rate for the module.  This sets the resolution of data to record
 # This is done via a direct command to the power module
