@@ -103,7 +103,7 @@ print ("Module Name:")
 print (myQpsDevice.sendCommand ("hello?"))
 
 # Setup the volatge mode and enable the outputs
-# Comment it out for PAM modules
+# Uncomment for modules that can perform power margining (XLC, HDPPM)
 #setupPowerOutput (myQpsDevice)
 
 # Set the averaging rate for the module.  This sets the resolution of data to record
