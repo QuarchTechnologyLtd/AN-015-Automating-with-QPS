@@ -19,9 +19,7 @@ This can also be used if you want to use a different version of QPS and will run
 '''
 
 # Import QPS functions
-import quarchpy
-from quarchpy.qps import *
-from quarchpy.device import *
+from quarchpy import qpsInterface, isQpsRunning, startLocalQps, GetQpsModuleSelection, quarchDevice, quarchQPS, requiredQuarchpyVersion
 # OS allows us access to path data
 import os, time
 
@@ -68,7 +66,7 @@ def writeArbitaryData (myStream, channelName, groupName):
 
 
 # Version 2.0.0 or higher expected for this appliation note
-quarchpy.requiredQuarchpyVersion ("2.0.0")
+requiredQuarchpyVersion ("2.0.0")
 
 '''
 File paths for the example are set here, and can be altered to put your data files in a different location
