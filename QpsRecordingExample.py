@@ -91,13 +91,11 @@ def main():
     The final boolean will create auto SI unit ranges (milli/micro...) automatically if set to true
     '''
     myStream.addAnnotation('Starting temperature measurement here!')
-    print(myStream.get_stats())
     # Create new channel to record data into
     myStream.createChannel ('T1', 'Temp', 'C', False)
     myStream.createChannel ('T2', 'Temp', 'C', False)
     # Write some example data into the channel
     writeArbitaryData (myStream, 'T1', 'Temp')
-    print(myStream.get_stats())
     # End the stream
     myStream.stopStream()
 
