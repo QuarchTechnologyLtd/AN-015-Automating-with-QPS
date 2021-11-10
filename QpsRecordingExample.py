@@ -18,10 +18,13 @@ This can also be used if you want to use a different version of QPS and will run
 ####################################
 '''
 
-# Import QPS functions
-from quarchpy import qpsInterface, isQpsRunning, startLocalQps, GetQpsModuleSelection, quarchDevice, quarchQPS, requiredQuarchpyVersion
 # OS allows us access to path data
-import os, time
+import os
+import time
+
+# Import QPS functions
+from quarchpy import qpsInterface, isQpsRunning, startLocalQps, GetQpsModuleSelection, getQuarchDevice, quarchDevice, quarchQPS, \
+    requiredQuarchpyVersion
 
 
 def main():
@@ -46,7 +49,7 @@ def main():
     #Display and choose module from found modules. This returns a String with the connectionTarget to the device. USB::QTL1999-05-005 or TCP::192.168.1.1
     myDeviceID = GetQpsModuleSelection (myQps)
     #convert module to quarch module
-    myQuarchDevice = quarchDevice (myDeviceID, ConType = "QPS")
+    myQuarchDevice = getQuarchDevice(myDeviceID, ConType = "QPS")
     # Create the device connection, as a QPS connected device
     myQpsDevice = quarchQPS(myQuarchDevice)
     myQpsDevice.openConnection()

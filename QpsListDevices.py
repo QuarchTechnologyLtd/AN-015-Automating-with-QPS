@@ -21,7 +21,6 @@ This can also be used if you want to use a different version of QPS and will run
 import quarchpy
 from quarchpy.qps import *
 # OS allows us access to path data
-import os
 
 # Version 2.0.0 or higher expected for this appliation note
 quarchpy.requiredQuarchpyVersion ("2.0.0")
