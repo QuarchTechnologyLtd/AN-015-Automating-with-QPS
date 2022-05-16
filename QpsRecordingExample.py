@@ -67,8 +67,9 @@ def main():
     print(myQpsDevice.sendCommand ("record:averaging 32k"))
 
     # Start a stream, using the local folder of the script and a time-stamp file name in this example
-    fileName = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())
-    myStream = myQpsDevice.startStream(filePath + fileName)
+    fileName = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())    
+    myStream = myQpsDevice.startStream(filePath + "\\" +  fileName)
+    print ("File output path set: " + filePath + "\\" + fileName)
 
     '''
     Example of adding annotations to the trace.  This can be used to highlight events, errors or
