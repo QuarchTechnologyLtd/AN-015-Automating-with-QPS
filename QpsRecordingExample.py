@@ -47,7 +47,7 @@ def main():
     myQps = qpsInterface()
 
     #Display and choose module from found modules. This returns a String with the connectionTarget to the device. USB::QTL1999-05-005 or TCP::192.168.1.1
-    myDeviceID = GetQpsModuleSelection (myQps)
+    myDeviceID = GetQpsModuleSelection(myQps)
     #convert module to quarch module
     myQuarchDevice = getQuarchDevice(myDeviceID, ConType = "QPS")
     # Create the device connection, as a QPS connected device
@@ -57,14 +57,14 @@ def main():
     # Prints out connected module information
     print("Running QPS Automation Example")
     print("Module Name:")
-    print(myQpsDevice.sendCommand ("hello?"))
+    print(myQpsDevice.sendCommand("hello?"))
 
     # Setup the voltage mode and enable the outputs
     setupPowerOutput(myQpsDevice)
 
     # Set the averaging rate for the module.  This sets the resolution of data to record
     # This is done via a direct command to the power module
-    print(myQpsDevice.sendCommand ("record:averaging 32k"))
+    print(myQpsDevice.sendCommand("record:averaging 32k"))
 
     # Start a stream, using the local folder of the script and a time-stamp file name in this example
     fileName = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())    
