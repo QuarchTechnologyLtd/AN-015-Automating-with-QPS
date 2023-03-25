@@ -20,6 +20,8 @@ This example demonstrates adding annotations and datapoints to a QPS stream.
     https://quarch.com/downloads/driver/
 4- Check USB permissions if using Linux:
     https://quarch.com/support/faqs/usb/
+5- Java 8, with JaxaFX
+    https://quarch.com/support/faqs/java/
 
 ########### INSTRUCTIONS ###########
 
@@ -93,8 +95,8 @@ def main():
 
     # Start a stream, using the local folder of the script and a time-stamp file name in this example
     fileName = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())    
-    myStream = myQpsDevice.startStream(filePath + "\\" +  fileName)
-    print("File output path set: " + filePath + "\\" + fileName)
+    myStream = myQpsDevice.startStream(os.path.join(filePath, fileName))
+    print("File output path set: " + str(os.path.join(filePath, fileName)))
 
     '''
     Example of adding annotations to the trace.  This can be used to highlight events, errors or
