@@ -108,7 +108,8 @@ def main():
     time.sleep (2)
     myStream.addAnnotation ('Adding an example annotation\\nIn real time!')
     time.sleep (1)
-    myStream.addAnnotation ('Adding an example annotation\\nAt a specific time!', time.time())
+    annotation_time = int(time.time() * 1000)  # time in milliseconds
+    myStream.addAnnotation ('Adding an example annotation\\nAt a specific time!', annotation_time)
     time.sleep(1)
 
     # Statistics can be fetched from QPS. Stats show the channel data between annotations.
@@ -173,7 +174,8 @@ def writeArbitaryData(myStream, channelName, groupName):
         time.sleep(1)
     time.sleep(1)
     # Add a final time point at a specific time to demonstrate random addition of points
-    myStream.addDataPoint(channelName, groupName, str(driveTemp), time.time())
+    last_reading_time = int(time.time() * 1000)  # time in milliseconds
+    myStream.addDataPoint(channelName, groupName, str(driveTemp), last_reading_time)
 
 
 
