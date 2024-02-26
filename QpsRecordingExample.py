@@ -12,6 +12,7 @@ This example demonstrates adding annotations and datapoints to a QPS stream.
 
 ########### REQUIREMENTS ###########
 
+
 1- Python (3.x recommended)
     https://www.python.org/downloads/
 2- Quarchpy python package
@@ -38,9 +39,11 @@ This example demonstrates adding annotations and datapoints to a QPS stream.
 import os
 import time
 
+import quarchpy.user_interface
 # Import QPS functions
 from quarchpy import qpsInterface, isQpsRunning, startLocalQps, GetQpsModuleSelection, getQuarchDevice, quarchDevice, quarchQPS, \
-    requiredQuarchpyVersion
+    requiredQuarchpyVersion, closeQPS
+from quarchpy.user_interface.user_interface import showDialog, requestDialog
 
 
 def main():
@@ -130,8 +133,8 @@ def main():
     writeArbitaryData (myStream, 'T1', 'Temp')
     # End the stream
     myStream.stopStream()
-
-
+    showDialog("End of test.") #From quarchpy userinterface class. Which handles py2 and py3 compatibility.
+    closeQPS()
 '''
 Simple function to check the output mode of the power module, setting it to 3v3 if required
 then enabling the outputs if not already done.  This will result in the module being turned on
@@ -141,13 +144,8 @@ def setupPowerOutput(myModule):
     # Output mode is set automatically on HD modules using an HD fixture, otherwise we will chose 5V mode for this example
     outModeStr = myModule.sendCommand("config:output mode?")
     if "DISABLED" in outModeStr:
-        try:
-            drive_voltage = raw_input(
-                "\n Either using an HD without an intelligent fixture or an XLC.\n \n>>> Please select a voltage [3V3, 5V]: ") or "3V3" or "5V"
-        except NameError:
-            drive_voltage = input(
-                "\n Either using an HD without an intelligent fixture or an XLC.\n \n>>> Please select a voltage [3V3, 5V]: ") or "3V3" or "5V"
-
+    	#From quarchpy userinterface class. Which handles py2 and py3 compatibility.
+        drive_voltage = requestDialog(message="\n Either using an HD without an intelligent fixture or an XLC.\n \n>>> Please select a voltage [3V3, 5V]: ")
         myModule.sendCommand("config:output:mode:" + drive_voltage)
 
     # Check the state of the module and power up if necessary
