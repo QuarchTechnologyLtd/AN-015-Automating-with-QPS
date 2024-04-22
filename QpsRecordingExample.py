@@ -94,7 +94,7 @@ def main():
 
     # Set the averaging rate for the module. This sets the resolution of data to record.
     # This is done via a direct command to the power module.
-    print(myQpsDevice.sendCommand("record:averaging 32k"))
+    print(myQpsDevice.sendCommand("record:averaging 8"))
 
     # Start a stream, using the local folder of the script and a time-stamp file name in this example
     fileName = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())    
@@ -113,10 +113,7 @@ def main():
     time.sleep (1)
     annotation_time = int(time.time() * 1000)  # time in milliseconds
     myStream.addAnnotation ('Adding an example annotation\\nAt a specific time!', annotation_time)
-    time.sleep(1)
-
-    # Statistics can be fetched from QPS. Stats show the channel data between annotations.
-    print(myStream.get_stats())
+    time.sleep(1)    
 
     '''
     Example of adding arbitrary data to the trace.  This allows IOPS, Temperature and similar to be added
@@ -131,7 +128,13 @@ def main():
     myStream.createChannel ('T2', 'Temp', 'C', False)
     # Write some example data into the channel
     writeArbitaryData (myStream, 'T1', 'Temp')
+    
+    # Statistics can be fetched from QPS. Stats show the channel data between annotations.
+    print ("\n\nHere are example stats, pulled from the API, these can be dropped into a CSV file or directly processed")
+    print(myStream.get_stats())
+    
     # End the stream
+    time.sleep(60)
     myStream.stopStream()
     showDialog("End of test.") #From quarchpy userinterface class. Which handles py2 and py3 compatibility.
     closeQPS()
