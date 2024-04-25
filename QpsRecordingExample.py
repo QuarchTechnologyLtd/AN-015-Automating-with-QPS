@@ -38,6 +38,7 @@ This example demonstrates adding annotations and datapoints to a QPS stream.
 # Import other libraries used in the examples
 import os
 import time
+import logging
 
 import quarchpy.user_interface
 # Import QPS functions
@@ -50,7 +51,7 @@ def main():
     # If required you can enable python logging, quarchpy supports this and your log file
     # will show the process of scanning devices and sending the commands.  Just comment out
     # the line below.  This can be useful to send to quarch if you encounter errors
-    # logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG)
+    #logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG)
 
     print("\n\nQuarch application note example: AN-015")
     print("---------------------------------------\n\n")
@@ -134,7 +135,7 @@ def main():
     print(myStream.get_stats())
     
     # End the stream
-    time.sleep(60)
+    time.sleep(30)
     myStream.stopStream()
     showDialog("End of test.") #From quarchpy userinterface class. Which handles py2 and py3 compatibility.
     closeQPS()
