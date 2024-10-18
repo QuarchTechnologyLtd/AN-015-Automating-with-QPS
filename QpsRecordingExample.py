@@ -43,7 +43,7 @@ import logging
 import quarchpy.user_interface
 # Import QPS functions
 from quarchpy import qpsInterface, isQpsRunning, startLocalQps, GetQpsModuleSelection, getQuarchDevice, quarchDevice, quarchQPS, \
-    requiredQuarchpyVersion, closeQPS
+    requiredQuarchpyVersion, closeQPS, __version__ as qpv
 from quarchpy.user_interface.user_interface import showDialog, requestDialog
 
 
@@ -54,8 +54,8 @@ def main():
     #logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG)
 
     print("\n\nQuarch application note example: AN-015")
-    print("---------------------------------------\n\n")
-
+    print("---------------------------------------\n")
+    print("Quarchpy version: "+ str(qpv)+"\n\n")
     # Version 2.0.15 or higher expected for this application note
     requiredQuarchpyVersion("2.0.15")
 
@@ -77,7 +77,7 @@ def main():
     myDeviceID = GetQpsModuleSelection(myQps)
 
     # If you know the name of the module you would like to talk to then you can skip module selection and hardcode the string.
-    # moduleStr = "USB:QTL1999-05-005"
+    # myDeviceID = "TCP::QTL2312-01-035"
 
     # Convert module to Quarch module
     print("\n\nConnecting to the selected device")
