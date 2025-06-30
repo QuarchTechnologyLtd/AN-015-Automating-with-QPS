@@ -9,6 +9,7 @@ This example demonstrates adding annotations and datapoints to a QPS stream.
 02/10/2018 - Matt Holsey    - Updated Script for updated QuarchPy Methods.
 15/10/2020 - Pedro Cruz     - Updated Script for PAM.
 23/03/2023 - Graham Seed    - Reviewed code and updated requirements and instructions.
+30/06/2025 - Nabil Ghayyda/Andy Norrie - Updated with more detailed examples and documentation for adding annotations and custom data.
 
 ########### REQUIREMENTS ###########
 
